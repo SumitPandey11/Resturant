@@ -39,6 +39,7 @@ public class Menu {
 
     public boolean removeMenuItem(MenuItem menuItem){
         if(this.menuItems.remove(menuItem.getMenuItemId()) != null ){
+            this.lastUpdate = new Date(System.currentTimeMillis());
             return true;
         }
         else{

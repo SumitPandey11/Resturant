@@ -26,6 +26,7 @@ public class Resturant {
         menue.removeMenuItem(menuItem1);
 
         System.out.println("*** After Removing menuItem1 *** ");
+        System.out.println( " This Menu last Updated on : " + menue.getLastUpdate() );
         menue.printMenu();
 
     }
