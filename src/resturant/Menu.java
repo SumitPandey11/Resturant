@@ -2,13 +2,15 @@ package resturant;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Menu {
 
     private Date lastUpdate = new Date();
-    private ArrayList<MenuItem> menuItems = new ArrayList<>();
+    private HashMap<String, MenuItem> menuItems = new HashMap<>();
+    private String newMenuItemId;
 
-    public ArrayList<MenuItem> getMenuItem() {
+    public HashMap getMenuItem() {
         return menuItems;
     }
 
@@ -17,12 +19,38 @@ public class Menu {
     }
 
     public boolean isNewMenuItem(MenuItem menuItem){
-            return ( menuItems.indexOf(menuItem) == menuItems.size() -1 );
+           if(menuItem.getMenuItemId().equals(this.newMenuItemId)) {
+               return true;
+           }
+           else {
+               return false;
+           }
     }
 
     public void addMenuItem(MenuItem menuItem){
-        this.menuItems.add(menuItem);
-        this.lastUpdate = new Date(System.currentTimeMillis());
+        if( ! this.menuItems.containsKey(menuItem.getMenuItemId())) {
+            this.menuItems.put(menuItem.getMenuItemId(), menuItem);
+            this.newMenuItemId = menuItem.getMenuItemId();
+            this.lastUpdate = new Date(System.currentTimeMillis());
+        } else{
+            System.out.println(menuItem.getDescription() + " this item is already in the menu");
+        }
     }
+
+    public boolean removeMenuItem(MenuItem menuItem){
+        if(this.menuItems.remove(menuItem.getMenuItemId()) != null ){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public void printMenu(){
+        for(MenuItem m : menuItems.values()){
+            m.printMenueItem();
+        }
+    }
+
 
 }
